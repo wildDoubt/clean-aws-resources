@@ -9,6 +9,8 @@ import { policies } from './iam/policy';
 
 const LAMBDA_PATH = 'lib/lambda';
 const FILE_NAME = 'index';
+const WORK_OFF_CRON = 'cron(0 9 * * ? *)';
+const RULE_NAME = 'RegularRule';
 
 const getAllLambdaFunctions = () => {
     const currentDirectory = process.cwd() + '/' + LAMBDA_PATH;
@@ -25,8 +27,8 @@ export class LambdaStack extends cdk.Stack {
         super(scope, id, props);
         const directories: string[] = getAllLambdaFunctions();
 
-        const rule = new events.Rule(this, 'RegularRule', {
-            schedule: events.Schedule.expression('cron(0 9 * * ? *)')
+        const rule = new events.Rule(this, RULE_NAME, {
+            schedule: events.Schedule.expression(WORK_OFF_CRON)
         });
         
         directories.forEach(async directoryName => {
