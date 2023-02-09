@@ -5,6 +5,7 @@ import * as lambda from "aws-cdk-lib/aws-lambda";
 import * as events from 'aws-cdk-lib/aws-events';
 import * as targets from 'aws-cdk-lib/aws-events-targets';
 import * as path from "path";
+import { policies } from './iam/policy';
 
 const LAMBDA_PATH = 'lib/lambda';
 const FILE_NAME = 'index';
@@ -24,11 +25,10 @@ export class LambdaStack extends cdk.Stack {
     constructor(scope: Construct, id: string, props?: cdk.StackProps) {
         super(scope, id, props);
         const directories: string[] = getAllLambdaFunctions();
-        
         const rule = new events.Rule(this, RULE_NAME, {
             schedule: events.Schedule.expression(WORK_OFF_CRON)
         });
-
+        
         directories.forEach(async directoryName => {
             const lambdaFunction = await new lambda.Function(this, directoryName, {
                 functionName: directoryName,
@@ -37,6 +37,8 @@ export class LambdaStack extends cdk.Stack {
                 runtime: lambda.Runtime.NODEJS_16_X
             });
             rule.addTarget(new targets.LambdaFunction(lambdaFunction));
+
+            lambdaFunction.addToRolePolicy(policies[directoryName]);
         });
     }
 }
