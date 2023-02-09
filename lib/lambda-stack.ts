@@ -21,12 +21,10 @@ const getAllLambdaFunctions = () => {
     return directories;
 }
 
-
 export class LambdaStack extends cdk.Stack {
     constructor(scope: Construct, id: string, props?: cdk.StackProps) {
         super(scope, id, props);
         const directories: string[] = getAllLambdaFunctions();
-
         const rule = new events.Rule(this, RULE_NAME, {
             schedule: events.Schedule.expression(WORK_OFF_CRON)
         });
