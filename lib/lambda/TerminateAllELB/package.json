@@ -1,0 +1,14 @@
+{
+  "name": "terminateallelb",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@aws-sdk/client-elastic-load-balancing-v2": "^3.267.0"
+  }
+}
