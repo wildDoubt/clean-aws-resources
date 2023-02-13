@@ -10,7 +10,7 @@ const stopEC2InstancesPolicy: iam.PolicyStatement = new iam.PolicyStatement({
         'ec2:StopInstances',
         'ec2:DescribeInstances'
     ],
-    resources: ['arn:aws:ec2:::*']
+    resources: ['*']
 })
 
 
@@ -21,7 +21,7 @@ const stopRDSInstancesPolicy: iam.PolicyStatement = new iam.PolicyStatement({
         'rds:StopDBInstance',
         'rds:DescribeDBInstances'
     ],
-    resources: ['arn:aws:rds:::*']
+    resources: ['*']
 })
 
 const terminateELBPolicy: iam.PolicyStatement = new iam.PolicyStatement({
@@ -30,7 +30,7 @@ const terminateELBPolicy: iam.PolicyStatement = new iam.PolicyStatement({
         'elasticloadbalancing:DeleteLoadBalancer',
         'elasticloadbalancing:DescribeLoadBalancers'
     ],
-    resources: ['arn:aws:elasticloadbalancing:::*']
+    resources: ['*']
 })
 
 
